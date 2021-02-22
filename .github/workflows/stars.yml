@@ -1,0 +1,25 @@
+name: stars
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo stars
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const {
+              name,
+              forks_count,
+              stargazers_count,
+              watchers_count,
+            } = context.payload.repository;
+            console.log(name);
+            console.log(`This repository seriously needs more than ${
+              stargazers_count} star${stargazers_count !== 1 ? 's' : ''}, ${
+              forks_count} fork${forks_count !== 1 ? 's' : ''} and ${
+              watchers_count} stalker${watchers_count !== 1 ? 's' : ''}`);
