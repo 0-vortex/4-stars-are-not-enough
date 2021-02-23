@@ -16,14 +16,22 @@ jobs:
           script: |
             const plural = (count) => count !== 1 ? 's' : '';
             const verb = (count) => count === 1 ? 'is' : 'are';
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
             const {
-              name,
-              owner: {login},
-              description,
-              forks_count,
-              stargazers_count,
-              watchers_count,
-            } = context.payload.repository;
+              data: {
+                name,
+                description,
+                stargazers_count,
+                watchers_count,
+                forks_count,
+                open_issues_count,
+                network_count,
+                subscribers_count,
+              }
+            } = await github.repos.get({
+              owner,
+              repo,
+            });
             const adjustedName = `${stargazers_count}-star${plural(stargazers_count)}-${
               verb(stargazers_count)}-not-enough`;
             const adjustedDescription = `Efficient octokit action schedule demonstration. Give this repository more than ${
@@ -32,9 +40,11 @@ jobs:
               watchers_count} stalker${plural(watchers_count)} and check it update 🚀`;
             if (name !== adjustedName || description !== adjustedDescription) {
               await github.repos.update({
-                owner: login,
-                repo: name,
+                owner,
+                repo,
                 name: adjustedName,
                 description: adjustedDescription,
               });
             }
+            
+            

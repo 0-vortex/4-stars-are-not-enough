@@ -8,7 +8,7 @@ This is an efficient octokit action schedule demonstration meant to satisfy diff
 - ability to integrate many repositories
 - resilient to high traffic
 
-As mentioned in the [documentation](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule) 
+As mentioned in the [documentation](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule):
 
 >  The shortest interval you can run scheduled workflows is once every 5 minutes.
 
