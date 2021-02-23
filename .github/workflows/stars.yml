@@ -2,6 +2,8 @@ name: stars
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   deploy:
@@ -24,10 +26,10 @@ jobs:
             } = context.payload.repository;
             const adjustedName = `${stargazers_count}-star${plural(stargazers_count)}-${
               verb(stargazers_count)}-not-enough`;
-            const adjustedDescription = `This repository seriously needs more than ${
+            const adjustedDescription = `Efficient octokit action schedule demonstration. Give this repository more than ${
               stargazers_count} star${plural(stargazers_count)}, ${
               forks_count} fork${plural(forks_count)} and ${
-              watchers_count} stalker${plural(watchers_count)} 🚀`;
+              watchers_count} stalker${plural(watchers_count)} and check it update 🚀`;
             if (name !== adjustedName || description !== adjustedDescription) {
               await github.repos.update({
                 owner: login,
